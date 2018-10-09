@@ -45,14 +45,14 @@ levelObj.sety(180)
 
 # a function to move pad left by 20 pixels
 def _left():
-    corx = pad.xcor() - 20
+    corx = pad.xcor() - 40
     pad.setx(corx);
 
 
 # a function to move pad right by 20 pixels
 
 def _right():
-    pad.setx(pad.xcor() + 20)
+    pad.setx(pad.xcor() + 40)
 
 
 # Defining left key and right key to move the pad
@@ -75,7 +75,7 @@ while (True):
     if score == 10:
         score = 0
         game_level = game_level + 1
-        speed = speed + 2
+        speed = speed + 7
         levelObj.clear()
         levelObj.write("Level: %d" % (game_level), font=style)
 
@@ -89,10 +89,11 @@ while (True):
     while (ball.ycor() > -200):  # As long as the ball in the air
         ystep = ystep - 0.2  # add acceleration due to gravity
         if ((ball.ycor() > 190) & (ystep > 0)):
-            break  # exit when the ball reaches the ceiling and restart
+            ystep = -ystep
+            # break  # exit when the ball reaches the ceiling and restart
         if ((ball.ycor() < -170) & (ystep < 0) & (lost == False)):  # if the ball is on the floor level and is falling
             if (abs(
-                    ball.xcor() - pad.xcor()) > 30):  # if the ball position is different from the pad position by more than 30 pixels
+                    ball.xcor() - pad.xcor()) > 50):  # if the ball position is different from the pad position by more than 30 pixels
                 scoreKeeper.clear()
                 scoreKeeper.color("Red")
                 score = score - 1
@@ -102,7 +103,7 @@ while (True):
                 scoreKeeper.clear()
                 scoreKeeper.color("Black")
                 score = score + 1
-                ystep = -ystep * 0.9
+                ystep = -ystep * 1.0
             scoreKeeper.write("Score: %d" % (score), font=style)
         if (lost == False):  # Rotate only a ball,but not the exploded ball
             ball.right(7)
